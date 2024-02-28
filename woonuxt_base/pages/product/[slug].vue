@@ -74,7 +74,7 @@ const disabledAddToCart = computed(() => !type.value || stockStatus.value === St
         :main-image="type.image ? type.image?.sourceUrl || product.image.sourceUrl : '/images/placeholder.jpg'"
         :gallery="product.galleryImages!"
         :node="type" />
-      <NuxtImg v-else class="relative flex-1" src="/images/placeholder.jpg" :alt="product?.name || 'Product'" />
+      <NuxtImg v-else class="relative flex-1 skeleton" src="/images/placeholder.jpg" :alt="product?.name || 'Product'" />
 
       <div class="lg:max-w-md xl:max-w-lg md:py-2 w-full">
         <div class="flex justify-between mb-4">
@@ -146,7 +146,7 @@ const disabledAddToCart = computed(() => !type.value || stockStatus.value === St
       </div>
     </div>
     <div v-if="product.description || product.reviews" class="my-32">
-      <LazyProductTabs :product="product" />
+      <ProductTabs :product="product" />
     </div>
     <div class="my-32" v-if="product.related">
       <div class="mb-4 text-xl font-semibold">{{ $t('messages.shop.youMayLike') }}</div>

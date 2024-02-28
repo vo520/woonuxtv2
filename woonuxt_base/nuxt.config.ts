@@ -5,10 +5,15 @@ const { resolve } = createResolver(import.meta.url);
 export default defineNuxtConfig({
   app: {
     head: {
+      titleTemplate: `%s | ${process.env.SITE_TITLE ?? 'WooNuxt'}`,
       htmlAttrs: { lang: 'en' },
       link: [{ rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
+  },
+
+  experimental: {
+    sharedPrerenderData: true,
   },
 
   plugins: [resolve('./plugins/init.ts')],
@@ -19,7 +24,6 @@ export default defineNuxtConfig({
 
   image: {
     domains: process.env.NUXT_IMAGE_DOMAINS ? process.env.NUXT_IMAGE_DOMAINS.replace(/ /g, '').split(',') : [],
-    dir: resolve('./static'),
   },
 
   hooks: {
@@ -32,13 +36,11 @@ export default defineNuxtConfig({
       pages.push({
         name: 'product-category-page',
         path: '/product-category/:categorySlug',
-        // file: resolve('./pages/products.vue'),
         file: resolve('./pages/product-category/[slug].vue'),
       });
       pages.push({
         name: 'product-category-page-pager',
         path: '/product-category/:categorySlug/page/:pageNumber',
-        // file: resolve('./pages/products.vue'),
         file: resolve('./pages/product-category/[slug].vue'),
       });
       pages.push({
